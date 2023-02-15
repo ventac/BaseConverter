@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <math.h>
+#define MAX 5
+
 //#include <system.h>
 
 bool canBeBIN(char * saisie){
@@ -19,19 +22,28 @@ bool canBeHEX(char * saisie){
 }
 
 
-int toBIN(char* saisie, int base){
+/*int Convertir(int baseIN, int baseOUT, int saisie){
 
-    switch (base)
+    switch (baseOUT)
     {    
-    case 8:
+    case 2:
+        ToBIN(baseIN, saisie);
     break;
     case 10:
+        ToDEC(baseIN, saisie);
     break;
     case 16:
     break;    
     default:
         break;
     }
+
+
+}*/
+
+int ToBIN(int BaseIN, int saisie){
+
+
 
 
 }
@@ -42,19 +54,86 @@ bool baseNonValide(int base){
     }else return false;
 }
 
-int toOCT(){}
-int toDEC(){}
-char* toHEX(){}
+int ToOCT(){}
+/*
+int* ToDEC(int BaseIN, int saisie[MAX]){
+    switch (BaseIN)
+    {
+    case 2:
+        for (int i = 0; i<MAX;i++){
+            saisie[i] = 1;  // Juste pour tester
+        }
+        return saisie;
+        break;
+    
+    default:
+        break;
+    }
+}
+*/
+
+char* ToHEX(){}
+/*
+void viderTableau(char (*tableau)[MAX]){
+    for (int i = 0;i<MAX;i++){
+        *tableau[i] = NULL;
+    }
+}
+*/
+
+// J'ai réecrit ma propre version de la fonction pour éviter les erreurs avec la foction "pow" et "powf"
+float Power(float num, int puissance){
+    float resultat = 1; // Pour pas multiplier par 0
+    for (int i = 0; i < puissance; i++){
+        resultat *= num;
+    }
+    return resultat;
+}
+
 
 int main(){
 
-    char* saisieUser;
-    int baseIN, baseOUT = 0;
+    // Déclaration des variables
+    char saisieUser[MAX];
+    //int saisieUser[MAX];
+    //char *psaisieUser[MAX];
+    //int resultat[20];
+    float resultat = 0;
+    int baseIN = 0;
+    int baseOUT = 0;
+    int puissance = 0;
+
+    //viderTableau(psaisieUser);
 
     // Entrée
-    printf("Merci de saisir ce que vous voulez convertir : ");   
-    scanf("%s",saisieUser);    
-    while (/* character supp 16 */true)
+    printf("Merci de saisir ce que vous voulez convertir :  ");   
+    //scanf("%d",saisieUser);    
+    scanf("%s",saisieUser);  
+    //printf("\n%c\n",*saisieUser);
+
+    // Convertir
+    //printf ("%d", Convertir(2,10,123));
+
+    
+    // De binaire à decimal
+    for (int i=MAX-1 ; i>=0 ; i--){
+
+        resultat += ((saisieUser[i]-48) * Power(2,puissance));
+        //resultat = pow
+        puissance++;
+
+        printf("i: %d\n",i);
+        printf("puissance: %d\n",puissance);
+        printf("saisieUser[i]: %d\n",saisieUser[i]);
+        printf("resultat: %f\n",resultat);
+        //printf("%f",powf(puissance,3));
+        
+    }
+
+    printf("\n\nresultat: %f\n",resultat);
+
+    /*
+    while (true)// character supp 16 
     {
         printf("La limite est la base HEX, donc pas possible supérieur à F\n");
         printf("\nMerci de resaisir le nombre : \n");
@@ -104,7 +183,7 @@ int main(){
         printf("\nVotre choix : ");
         scanf("%s",baseOUT);
     }
-
+*/
     /*
     switch (expression)
     {
@@ -117,10 +196,10 @@ int main(){
     }
     */
 
-    printf("Merci de choisir la base RETOUR");
+    //printf("Merci de choisir la base RETOUR");
 
     // Tester si saisie est ok
-    printf("Choisir base d'origine");
+    //printf("Choisir base d'origine");
 
     return 0;
 
