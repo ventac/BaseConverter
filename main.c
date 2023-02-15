@@ -55,22 +55,7 @@ bool baseNonValide(int base){
 }
 
 int ToOCT(){}
-/*
-int* ToDEC(int BaseIN, int saisie[MAX]){
-    switch (BaseIN)
-    {
-    case 2:
-        for (int i = 0; i<MAX;i++){
-            saisie[i] = 1;  // Juste pour tester
-        }
-        return saisie;
-        break;
-    
-    default:
-        break;
-    }
-}
-*/
+
 
 char* ToHEX(){}
 /*
@@ -94,43 +79,119 @@ float Power(float num, int puissance){
 int main(){
 
     // Déclaration des variables
-    char saisieUser[MAX];
-    //int saisieUser[MAX];
-    //char *psaisieUser[MAX];
-    //int resultat[20];
-    float resultat = 0;
+    char saisieArrayChar[MAX];
+    int saisieInt;
+    float DEC = 0;
     int baseIN = 0;
     int baseOUT = 0;
     int puissance = 0;
+    int choix = 0;
+    bool baseValide = false;
 
-    //viderTableau(psaisieUser);
+    while(!baseValide)
+    {
+        //viderTableau(psaisieUser);
+        printf("Merci de choisir la base d'origine : \n"); 
 
-    // Entrée
-    printf("Merci de saisir ce que vous voulez convertir :  ");   
-    //scanf("%d",saisieUser);    
-    scanf("%s",saisieUser);  
-    //printf("\n%c\n",*saisieUser);
+        // Test entrée
+        printf("[2] Pour binaire : \n");
+        printf("[8] Pour octal : \n");
+        printf("[10] Pour décimal : \n");
+        printf("[16] Pour hexadecimal : \n");
+        scanf("%d",&choix);
 
-    // Convertir
-    //printf ("%d", Convertir(2,10,123));
 
-    
-    // De binaire à decimal
-    for (int i=MAX-1 ; i>=0 ; i--){
+        switch (choix)
+        {
+            //__________________________________________________________________
+            case 2:        
+                printf("Merci de saisir le chiffre binnaire :  ");       
+                scanf("%s",saisieArrayChar); 
 
-        resultat += ((saisieUser[i]-48) * Power(2,puissance));
-        //resultat = pow
-        puissance++;
+                // De binaire à décimal
+                for (int i=MAX-1 ; i>=0 ; i--){
+                    DEC += ((saisieArrayChar[i]-48) * Power(2,puissance)); 
+                    puissance++;        
+                }
+                printf("\n\nDécimal: %f\n",DEC); 
 
-        printf("i: %d\n",i);
-        printf("puissance: %d\n",puissance);
-        printf("saisieUser[i]: %d\n",saisieUser[i]);
-        printf("resultat: %f\n",resultat);
-        //printf("%f",powf(puissance,3));
-        
+                baseValide = true;
+            break;
+            //__________________________________________________________________
+            case 8:
+                printf("Merci de saisir le chiffre octal :  ");       
+                scanf("%d",&saisieInt);  
+
+                // De octal à décimal
+
+                baseValide = true;
+            break;
+            //__________________________________________________________________
+            case 10:
+                // Pas de conversion
+                printf("Merci de saisir le chiffre décimal :  ");       
+                scanf("%d",&DEC);   
+                baseValide = true;
+            break;
+            //__________________________________________________________________
+            case 16:
+                printf("Merci de saisir le chiffre hexadécimal :  ");       
+                scanf("%d",&saisieInt);  
+
+                // De HEX à décimal
+
+                baseValide = true;
+            break;
+            //__________________________________________________________________
+            default:
+                // Base non valide
+                printf("Base non valide! ");
+                baseValide = false;
+            break;
+        }
     }
+    
+    // Agora so preciso converter tudo em decimal
+    
 
-    printf("\n\nresultat: %f\n",resultat);
+
+
+
+    // De decimal à binaire
+    int nbre = 31;
+    nbre = DEC;  // Test de conversion directe
+    int reste = nbre;
+    int resultatBIN[255];
+    int i = 8;
+    int tailleTableau = 0;
+
+    do {   
+        resultatBIN[i] = reste%2;    
+        reste /= 2;
+        i--;
+        tailleTableau++;
+    } while (reste >= 2);   
+
+    printf("Binaire : %d",reste);  // Le reste de la dernière opération
+    for (int j = i+1;j<tailleTableau+i+1;j++){
+        printf("%d",resultatBIN[j]);
+    }
+    
+    // De décimal à octal
+        // Diviser le numero par goupes de 3
+        // Il y a une fonction qui fait tout ça
+    int resultatDEC_int = DEC;
+    printf("\nOctal : %o\n",resultatDEC_int);
+
+    // De décimal à hexadécimal
+    printf("Hexadécimal : %x\n",resultatDEC_int);
+
+    // 
+
+
+
+
+
 
     /*
     while (true)// character supp 16 
